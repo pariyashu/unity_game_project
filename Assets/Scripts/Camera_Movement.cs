@@ -1,30 +1,26 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camera_Movement : MonoBehaviour
-{
-    // IDEA - Camera should follow the player which is our target here 
+public class Camera_Movement : MonoBehaviour {
     [SerializeField]
-    private Transform target;
-    public Vector3 offset; 
+    private Transform player;
+    //public GameObject player;        //Public variable to store a reference to the player game object
 
 
-    void Start()
+    private Vector3 offset;            //Private variable to store the offset distance between the player and camera
+
+    // Use this for initialization
+    void Start () 
     {
-        offset = transform.position - target.transform.position; 
+        //Calculate and store the offset value by getting the distance between the player's position and camera's position.
+        offset = transform.position - player.transform.position;
     }
 
-    // LATEUPDATE - is called at the end of the frame 
-    void LateUpdate()
+    // LateUpdate is called after Update each frame
+    void LateUpdate () 
     {
-        // NULL CHECK  
-        if(target != null)
-        {
-            // ADD OFFSET - to our position in order to depict the player properly
-            Vector3 newPosition = target.transform.position + offset;
-            transform.position = newPosition; 
-        }
+        // Set the position of the camera's transform to be the same as the player's, but offset by the calculated offset distance.
+        transform.position = player.transform.position + offset;
     }
 }
